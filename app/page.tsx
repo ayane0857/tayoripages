@@ -43,7 +43,7 @@ export default function Home() {
           {/* ③ Social media links */}
           <div className="flex gap-4 items-center">
             <Link
-              href="https://youtube.com/example"
+              href="https://www.youtube.com/channel/UCO-M9EilpZtUr-44QuUxI2w"
               className="flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
@@ -52,7 +52,7 @@ export default function Home() {
               <span>YouTube</span>
             </Link>
             <Link
-              href="https://twitter.com/example"
+              href="https://x.com/Tayori8739"
               className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition-colors"
               target="_blank"
               rel="noopener noreferrer"
