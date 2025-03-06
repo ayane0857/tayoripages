@@ -1,7 +1,13 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Youtube, Twitter } from "lucide-react";
-function ProfileItem({ label, value }) {
+type ProfileItemProps = {
+  label: string;
+  value: string | number; // value は文字列または数値
+};
+
+const ProfileItem: React.FC<ProfileItemProps> = ({ label, value }) => {
   return (
     <div className="border-b border-gray-200 dark:border-gray-700 pb-2">
       <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
@@ -10,7 +16,7 @@ function ProfileItem({ label, value }) {
       <p className="mt-1 text-lg font-semibold">{value}</p>
     </div>
   );
-}
+};
 
 export default function Home() {
   return (
