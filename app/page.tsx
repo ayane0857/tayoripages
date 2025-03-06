@@ -1,101 +1,87 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Youtube, Twitter } from "lucide-react";
+function ProfileItem({ label, value }) {
+  return (
+    <div className="border-b border-gray-200 dark:border-gray-700 pb-2">
+      <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
+        {label}
+      </h3>
+      <p className="mt-1 text-lg font-semibold">{value}</p>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+        {/* Left side: Character illustration */}
+        <div className="w-full w-1/2 flex justify-center">
+          <Image
+            src="/standing_picture.png"
+            width={556}
+            height={1000}
+            alt="VTuber Character"
+            className=""
+            priority
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Right side: Description text */}
+        <div className="w-full w-1/2 space-y-6">
+          {/* ① Name (larger text) */}
+          <h1 className="text-4xl md:text-5xl font-bold text-center md:text-left">
+            音(たより)
+          </h1>
+
+          {/* ② Description text */}
+          <p className="text-lg text-muted-foreground">
+            音とは、ゆっくり茶番ショート投稿者であり、脳死で会話する霊夢と魔理沙と音シリーズでは生声を使用し、ショート動画を作成している。現在、チャンネル登録者は10万人を突破している。
+          </p>
+
+          {/* ③ Social media links */}
+          <div className="flex gap-4 items-center">
+            <Link
+              href="https://youtube.com/example"
+              className="flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Youtube className="h-5 w-5" />
+              <span>YouTube</span>
+            </Link>
+            <Link
+              href="https://twitter.com/example"
+              className="flex items-center gap-2 text-blue-500 hover:text-blue-600 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Twitter className="h-5 w-5" />
+              <span>Twitter</span>
+            </Link>
+          </div>
+
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h2 className="text-xl font-semibold mb-3">詳しい情報</h2>
+            <ProfileItem label="芸名" value="桜木音" />
+            <ProfileItem label="誕生日" value="10月20日" />
+            <ProfileItem label="性別" value="女性" />
+            <ProfileItem label="血液型" value="O型" />
+            <ProfileItem label="好きな季節" value="秋" />
+            <ProfileItem label="好きな色" value="水色" />
+            <ProfileItem label="猫犬" value="猫派" />
+            <ProfileItem label="ハッシュタグ" value="#風のお音" />
+            <ProfileItem label="文理" value="文系" />
+            <ProfileItem label="好きな東方キャラ" value="フラン" />
+          </div>
+        </div>
+      </div>
+
+      {/* ⑤ Footer */}
+      <div className="mt-12 pt-4 border-t text-center text-sm text-muted-foreground">
+        <p>© 2025 Tayori Pages. All rights reserved.</p>
+      </div>
     </div>
   );
 }
