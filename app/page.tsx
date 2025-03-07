@@ -9,11 +9,11 @@ type ProfileItemProps = {
 
 const ProfileItem: React.FC<ProfileItemProps> = ({ label, value }) => {
   return (
-    <div className="border-b border-gray-200 dark:border-gray-700 pb-2">
-      <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
+    <div className="border-b border-gray-200 dark:border-gray-700 pb-2 mb-2">
+      <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-0.5">
         {label}
       </h3>
-      <p className="mt-1 text-lg font-semibold">{value}</p>
+      <p className="text-lg font-semibold mt-0">{value}</p>
     </div>
   );
 };
