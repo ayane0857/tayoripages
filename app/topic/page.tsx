@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { client } from "@/libs/client";
-import Header from "@/components/header";
+
 // ブログ記事の型定義
 type Props = {
   id: string;
