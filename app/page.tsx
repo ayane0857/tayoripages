@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,14 +5,9 @@ import { Youtube, Twitter } from "lucide-react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
-export const metadata: Metadata = {
-  title: "ホーム",
-  description: "音(たより)に関する情報を掲載しています。",
-};
-
 type ProfileItemProps = {
   label: string;
-  value: string | number; // value は文字列または数値
+  value: string | number;
 };
 
 const ProfileItem: React.FC<ProfileItemProps> = ({ label, value }) => {
@@ -30,14 +24,11 @@ const ProfileItem: React.FC<ProfileItemProps> = ({ label, value }) => {
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
       <Header />
 
-      {/* Main content */}
       <main className="flex-1">
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
-            {/* Left side: Character illustration */}
             <div className="w-full w-1/2 flex justify-center">
               <Image
                 src="/standing_picture.png"
@@ -48,19 +39,15 @@ export default function Home() {
               />
             </div>
 
-            {/* Right side: Description text */}
             <div className="w-full w-1/2 space-y-6">
-              {/* ① Name (larger text) */}
               <h1 className="text-3xl md:text-4xl font-bold text-center md:text-left">
                 音(たより)
               </h1>
 
-              {/* ② Description text */}
               <p className="text-lg text-muted-foreground">
                 音とは、ゆっくり茶番ショート投稿者であり、脳死で会話する霊夢と魔理沙と音シリーズでは生声を使用し、ショート動画を作成している。現在、チャンネル登録者は10万人を突破している。
               </p>
 
-              {/* ③ Social media links */}
               <div className="flex gap-4 items-center">
                 <Link
                   href="https://www.youtube.com/channel/UCO-M9EilpZtUr-44QuUxI2w"
@@ -100,7 +87,6 @@ export default function Home() {
         </div>
       </main>
 
-      {/* ⑤ Footer */}
       <Footer />
     </div>
   );

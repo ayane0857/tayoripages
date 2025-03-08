@@ -1,7 +1,18 @@
-import type { MetadataRoute } from "next";
+import { client } from "@/libs/client";
+import { MetadataRoute } from "next";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
+type Post = {
+  id: string;
+  title: string;
+  publishedAt: string;
+};
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // ベースURLを設定（実際のドメインに変更してください）
+  const baseUrl = "https://xn--f9j5dg.com/";
+
+  // 固定ページのサイトマップエントリー
+  const staticPages = [
     {
       url: "https://xn--f9j5dg.com/",
       lastModified: new Date(),
@@ -17,8 +28,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: "https://xn--f9j5dg.com/about_this_site",
       lastModified: new Date(),
-      changeFrequency: "weekly",
+      changeFrequency: "yearly",
       priority: 0.5,
     },
   ];
+
+  // microCMSから全記事を取得
+  const posts = await client.get({
+    endpoint: "topic",
+    queries: { fields: "id,title,publishedAt" },
+  });
+
+  // 記事ページのサイトマップエントリーを生成
+  const postEntries = posts.contents.map((post: Post) => ({
+    url: `${baseUrl}/topic/${post.id}`,
+    lastModified: new Date(post.publishedAt),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  // 静的ページと記事ページを結合
+  return [...staticPages, ...postEntries];
 }
