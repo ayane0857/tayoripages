@@ -23,24 +23,15 @@ async function getTopicPost(id: string): Promise<Post> {
   return data;
 }
 
-type PageProps = {
-  params: {
-    id: string;
-  };
-  searchParams?: Record<string, string | string[]>;
-};
-
 // メタデータを動的に生成する関数
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
-  const { id } = params;
-  const post = await getTopicPost(id);
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const post = await getTopicPost(params.id);
 
-  // コンテンツからメタ説明を抽出（HTMLタグを除去、短くする
-  const description = post.content
-    .replace(/<[^>]*>/g, "") // HTMLタグを除去
-    .slice(0, 160); // 160文字に制限
+  const description = post.content.replace(/<[^>]*>/g, "").slice(0, 160);
 
   return {
     title: post.title,
@@ -54,15 +45,13 @@ export async function generateMetadata({
   };
 }
 
-// 記事詳細ページの生成
+// 記事詳細ページのコンポーネント
 export default async function TopicPostPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const { id } = await params;
-  const post = await getTopicPost(id);
-
+  const post = await getTopicPost(params.id);
   const formattedDate = dayjs(post.publishedAt).format("YY.MM.DD HH:mm");
 
   return (
