@@ -32,7 +32,7 @@ export async function generateMetadata({
   const { id } = params;
   const post = await getTopicPost(id);
 
-  // コンテンツからメタ説明を抽出（HTMLタグを除去、短くする）
+  // コンテンツからメタ説明を抽出（HTMLタグを除去、短くする
   const description = post.content
     .replace(/<[^>]*>/g, "") // HTMLタグを除去
     .slice(0, 160); // 160文字に制限
