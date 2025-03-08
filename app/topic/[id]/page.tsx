@@ -2,7 +2,6 @@ import { client } from "@/libs/client";
 import dayjs from "dayjs";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -14,12 +13,6 @@ type Post = {
   publishedAt: string;
 };
 
-// Next.js App Routerのページプロップス型
-type Props = {
-  params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
-
 // microCMSから特定の記事を取得
 async function getTopicPost(id: string): Promise<Post> {
   const data = await client.get({
@@ -29,30 +22,12 @@ async function getTopicPost(id: string): Promise<Post> {
   return data;
 }
 
-// メタデータを動的に生成する関数
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = params;
-  const post = await getTopicPost(id);
-
-  // コンテンツからメタ説明を抽出（HTMLタグを除去、短くする）
-  const description = post.content
-    .replace(/<[^>]*>/g, "") // HTMLタグを除去
-    .slice(0, 160); // 160文字に制限
-
-  return {
-    title: post.title,
-    description: description,
-    openGraph: {
-      title: post.title,
-      description: description,
-      type: "article",
-      publishedTime: post.publishedAt,
-    },
-  };
-}
-
 // 記事詳細ページの生成
-export default async function TopicPostPage({ params }: Props) {
+export default async function TopicPostPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = params;
   const post = await getTopicPost(id);
 
