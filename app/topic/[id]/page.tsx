@@ -6,7 +6,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-// ブログ記事の型定義
 type Post = {
   id: string;
   title: string;
@@ -14,44 +13,40 @@ type Post = {
   publishedAt: string;
 };
 
-// microCMSから特定の記事を取得
-async function getTopicPost(id: string): Promise<Post> {
-  const data = await client.get({
+async function getTopicPost(params: Promise<{ id: string }>): Promise<Post> {
+  const { id } = await params;
+  return client.get({
     endpoint: "topic",
     contentId: id,
   });
-  return data;
 }
 
-// メタデータを動的に生成する関数
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const post = await getTopicPost(params.id);
-
+  const post = await getTopicPost(params);
   const description = post.content.replace(/<[^>]*>/g, "").slice(0, 160);
 
   return {
     title: post.title,
-    description: description,
+    description,
     openGraph: {
       title: post.title,
-      description: description,
+      description,
       type: "article",
       publishedTime: post.publishedAt,
     },
   };
 }
 
-// 記事詳細ページのコンポーネント
 export default async function TopicPostPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const post = await getTopicPost(params.id);
+  const post = await getTopicPost(params);
   const formattedDate = dayjs(post.publishedAt).format("YY.MM.DD HH:mm");
 
   return (
@@ -82,7 +77,6 @@ export default async function TopicPostPage({
   );
 }
 
-// 静的パスを生成
 export async function generateStaticParams() {
   const response = await client.get({
     endpoint: "topic",
