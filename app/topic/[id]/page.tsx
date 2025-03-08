@@ -54,7 +54,6 @@ export default async function TopicPostPage({
   params,
 }: {
   params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const { id } = params;
   const post = await getTopicPost(id);
