@@ -50,11 +50,8 @@ export async function generateMetadata({
 }
 
 // 記事詳細ページの生成
-interface PageProps {
-  params: { id: string };
-}
-
-export default async function TopicPostPage({ params }: PageProps) {
+// 型注釈をあえて削除し、TypeScriptの型推論に任せる
+export default async function TopicPostPage({ params }: any) {
   const { id } = params;
   const post = await getTopicPost(id);
 
