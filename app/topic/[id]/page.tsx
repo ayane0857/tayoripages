@@ -6,9 +6,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
-interface TopicPageProps {
-  params: { id: string };
-}
 // ブログ記事の型定義
 type Post = {
   id: string;
@@ -53,7 +50,11 @@ export async function generateMetadata({
 }
 
 // 記事詳細ページの生成
-export default async function TopicPostPage({ params }: TopicPageProps) {
+export default async function TopicPostPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = params;
   const post = await getTopicPost(id);
 
