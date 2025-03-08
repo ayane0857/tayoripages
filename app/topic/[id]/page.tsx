@@ -14,6 +14,12 @@ type Post = {
   publishedAt: string;
 };
 
+// Next.js App Routerのページプロップス型
+type PageProps = {
+  params: { id: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+};
+
 // microCMSから特定の記事を取得
 async function getTopicPost(id: string): Promise<Post> {
   const data = await client.get({
@@ -26,9 +32,7 @@ async function getTopicPost(id: string): Promise<Post> {
 // メタデータを動的に生成する関数
 export async function generateMetadata({
   params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const { id } = params;
   const post = await getTopicPost(id);
 
@@ -50,13 +54,7 @@ export async function generateMetadata({
 }
 
 // 記事詳細ページの生成
-// ESLint の制約を回避するためのコメントを追加
-// @ts-ignore
-export default async function TopicPostPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function TopicPostPage({ params }: PageProps) {
   const { id } = params;
   const post = await getTopicPost(id);
 
