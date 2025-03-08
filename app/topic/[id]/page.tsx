@@ -50,11 +50,11 @@ export async function generateMetadata({
 }
 
 // 記事詳細ページの生成
-export default async function TopicPostPage({
-  params,
-}: {
+interface PageProps {
   params: { id: string };
-}) {
+}
+
+export default async function TopicPostPage({ params }: PageProps) {
   const { id } = params;
   const post = await getTopicPost(id);
 
