@@ -23,7 +23,6 @@ async function getTopicPost(id: string): Promise<Post> {
   return data;
 }
 
-// Next.js 15での型定義に合わせてParamsの型を修正
 type PageProps = {
   params: {
     id: string;
@@ -35,7 +34,8 @@ type PageProps = {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const post = await getTopicPost(params.id);
+  const { id } = params;
+  const post = await getTopicPost(id);
 
   // コンテンツからメタ説明を抽出（HTMLタグを除去、短くする
   const description = post.content
@@ -55,8 +55,13 @@ export async function generateMetadata({
 }
 
 // 記事詳細ページの生成
-export default async function TopicPostPage({ params }: PageProps) {
-  const post = await getTopicPost(params.id);
+export default async function TopicPostPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const post = await getTopicPost(id);
 
   const formattedDate = dayjs(post.publishedAt).format("YY.MM.DD HH:mm");
 
