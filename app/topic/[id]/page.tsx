@@ -15,7 +15,7 @@ type Post = {
 };
 
 // Next.js App Routerのページプロップス型
-type PageProps = {
+type Props = {
   params: { id: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 };
@@ -30,9 +30,7 @@ async function getTopicPost(id: string): Promise<Post> {
 }
 
 // メタデータを動的に生成する関数
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = params;
   const post = await getTopicPost(id);
 
@@ -54,7 +52,7 @@ export async function generateMetadata({
 }
 
 // 記事詳細ページの生成
-export default async function TopicPostPage({ params }: PageProps) {
+export default async function TopicPostPage({ params }: Props) {
   const { id } = params;
   const post = await getTopicPost(id);
 
