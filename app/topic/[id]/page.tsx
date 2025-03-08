@@ -2,6 +2,7 @@ import { client } from "@/libs/client";
 import dayjs from "dayjs";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -20,6 +21,32 @@ async function getTopicPost(id: string): Promise<Post> {
     contentId: id,
   });
   return data;
+}
+
+// メタデータを動的に生成する関数
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const { id } = params;
+  const post = await getTopicPost(id);
+
+  // コンテンツからメタ説明を抽出（HTMLタグを除去、短くする）
+  const description = post.content
+    .replace(/<[^>]*>/g, "") // HTMLタグを除去
+    .slice(0, 160); // 160文字に制限
+
+  return {
+    title: post.title,
+    description: description,
+    openGraph: {
+      title: post.title,
+      description: description,
+      type: "article",
+      publishedTime: post.publishedAt,
+    },
+  };
 }
 
 // 記事詳細ページの生成
