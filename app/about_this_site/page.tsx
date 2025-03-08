@@ -25,7 +25,7 @@ export default function Home() {
           <p className="text-lg">
             このホームページを運営しているX(旧twitter)アカウントは{" "}
             <Link
-              href="/about_this_site"
+              href="https://x.com/@tayoripages"
               className="text-blue-500 hover:underline"
             >
               こちら
